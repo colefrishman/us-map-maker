@@ -34,6 +34,7 @@ const Svg = (props) => {
 				</view>
 			</views>
 		</metadata>
+		<text x="50%" y="35" style={{font: "30px sans-serif"}}>{props.title}</text>
 		<Path dataId="MA" dataName="Massachusetts" color={props.color} colorScheme={props.colorScheme}		d="m956.31 153.05-0.29118-0.19412v0.29119l0.29118-0.0971zm-2.9119-2.6207 0.67944-0.29119v-0.38825l-0.67944 0.67944zm12.036-7.5709-0.0971-1.3589-0.19412-0.7765 0.29119 2.1354zm-42.417-9.9975-0.67944 0.29119-5.5326 1.6501-1.9413 0.67944-2.2324 0.67944-0.7765 0.29119v0.29119l0.29118 5.0473 0.29119 4.659 0.29119 4.2708 0.48532 0.29119 1.7471-0.48532 7.8621-2.3295 0.19412 0.48531 13.977-5.3385 0.0971 0.19413 1.2618-0.48532 4.4649-1.7471 4.2708 5.1443 0.58238-0.48531 0.29119-1.456-0.0971 2.3295h0.97063l0.29119 1.1648 0.87357 1.6501 4.562-5.5326 3.7855 1.2618 0.87357-1.9413 6.212-3.3002-2.6207-5.1444 0.67945 3.3002-3.2031 2.4266-3.5913 0.29119-7.1827-7.668-3.2031-4.8532 3.2031-3.3972-3.3002-0.19413-1.3589-3.2031-0.0971-0.19413-5.5326 6.0179-12.23 4.0767-3.9796 1.2618z" fill="#f9f9f9" strokeWidth=".97063"/>
 		<Path dataId="MN" dataName="Minnesota" color={props.color} colorScheme={props.colorScheme}			d="m558.55 73.847 1.9413 6.8915 4.0766 24.848 1.9413 9.9004 0.58238 8.7357 2.2325 5.2414 0.48531 4.4649 0.38825 1.456-0.0971 0.29119-3.8825 6.4062 2.5236 4.2708 4.8532 34.166 0.19413 4.4649 4.8532-0.29119 19.121-1.0677 47.755-3.9796 4.7561-0.48532v-0.48531l-1.3589-7.4739-5.9208-3.009-4.659-4.8532-7.3768-4.4649-2.3295-0.19412-3.5913-2.7178 0.97063-13.395-3.3972-3.106 1.1648-5.4355 6.212-5.6297-1.0677-11.648 2.2324-2.5236 7.5709-7.9592 8.6386-11.065 3.3002-2.3295 5.8238-2.8148 6.115-4.562-4.0766 0.7765-2.4266-1.8442-9.3181 1.2618-1.4559-1.7471-8.3474 3.3972-6.6974-2.8148-1.8442-2.2325-5.3385 0.38825-3.5913-1.8442 1.1648-1.3589-4.562-1.4559h-4.0766l-6.5032 2.8148-1.2618-1.9413-10.289-1.4559-3.4943-8.7357-0.38826-2.6207-4.4649-1.2618 0.38825 7.4739-11.842 0.87357-14.657 0.58238-0.97063 0.09706z" fill="#f9f9f9" strokeWidth=".97063"/>
 		<Path dataId="MT" dataName="Montana" color={props.color} colorScheme={props.colorScheme}				d="m465.66 72.974-32.128-2.1354-23.392-2.2325-23.295-2.7178-14.462-1.9413-23.101-3.5913-11.551-1.9413-25.819-4.9502-2.7178-0.58238-4.1737 19.801 1.8442 3.5913 1.456 5.5326-0.87357 0.7765 1.8442 5.0473 2.5236 2.1354 7.1827 12.036 0.67944 2.0383 2.9119-0.19412-3.3972 15.918-1.3589 0.38825-1.8442 5.3385 9.6092 0.67944 0.77651 4.4649 5.4355 13.298 0.97063 0.7765 3.7855 7.765 0.97063-0.7765 8.0562-0.0971 10.192 1.0677 2.5236-3.3002 3.009 5.4355 0.58238 0.29119 0.0971-0.58237 1.3589-9.5122 33.196 4.0766 26.498 2.5236 13.977 1.1648 24.945 1.456 1.2618 0.0971h0.29119l0.0971-1.3589 0.29119-6.6974 0.38825-8.8327 0.0971-2.2325 0.19413-3.8825 1.553-30.478 1.2618-23.683 0.0971-3.8825-1.8442-0.09706z" fill="#f9f9f9" strokeWidth=".97063"/>
@@ -89,6 +90,7 @@ const Svg = (props) => {
 )}
 
 function App() {
+	const [title, setTitle] = useState("Title");
 	const [color, setColor] = useState("Reds");
 	const [categories, setCategories] = useState(5);
 	const [colorScheme, setColorScheme] = useState(["#aaaaaa", "#fee5d9", "#fcae91", "#fb6a4a", "#de2d26", "#a50f15" ]); 
@@ -97,7 +99,8 @@ function App() {
 		setColor(colr);
 		setCategories(cats);
 		let tempScheme = colorbrewer[colr][cats];
-		if(tempScheme[0] !== "#aaaaaa"){
+		console.log(colr)
+		if(tempScheme[0] !== "#aaaaaa" && colr !== "Greys"){
 			tempScheme.unshift("#aaaaaa");
 		}
 		console.log(colorbrewer[colr][cats]);
@@ -107,11 +110,14 @@ function App() {
 	return(
 		<div>
 			<h1>stats</h1>
-			<Svg colorScheme={colorScheme} />
+			<Svg colorScheme={colorScheme} title={title} />
 			<br />
-			<Button variant="success" onClick={() => {updateScheme("Greens",categories)}}>green</Button>
-			<Button variant="danger" onClick={() => {updateScheme("Reds",categories)}}>red</Button>
-			<Button variant="primary" onClick={() => {updateScheme("Blues",categories)}}>blue</Button>
+			<Button style={{color:"white", backgroundColor:"green", borderColor:"black"}} onClick={() => {updateScheme("Greens",categories)}}>green</Button>
+			<Button style={{color:"white", backgroundColor:"red", borderColor:"black"}} onClick={() => {updateScheme("Reds",categories)}}>red</Button>
+			<Button style={{color:"white", backgroundColor:"blue", borderColor:"black"}} onClick={() => {updateScheme("Blues",categories)}}>blue</Button>
+			<Button style={{color:"white", backgroundColor:"darkgray", borderColor:"black"}} onClick={() => {updateScheme("Greys",categories)}}>gray</Button>
+			<Button style={{color:"white", backgroundColor:"orange", borderColor:"black"}} onClick={() => {updateScheme("Oranges",categories)}}>orange</Button>
+			<Button style={{color:"white", backgroundColor:"purple", borderColor:"black"}} onClick={() => {updateScheme("Purples",categories)}}>purple</Button>
 			<Button style={{color:"white", backgroundColor:"blue", borderColor:"red"}} onClick={() => {updateScheme("RdBu",categories)}}>election</Button>
 			<Form.Control as="select" onChange={(event)=>{updateScheme(color, event.target.value)}}>
     			<option>3</option>
@@ -121,6 +127,10 @@ function App() {
     			<option>7</option>
     			<option>8</option>
     			<option>9</option>
+    		</Form.Control>
+			<Form.Label>title</Form.Label>
+			<Form.Control type="text" onChange={(event)=>{setTitle(event.target.value)}}>
+    			
     		</Form.Control>
 			<p>Map outline from simplemaps.com</p>
 			<p>Colors from colorbrewer2.org</p>
