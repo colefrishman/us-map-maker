@@ -8,27 +8,27 @@ import Svg from './Svg'
 function App() {
 	const [title, setTitle] = useState("Title");
 	const [color, setColor] = useState("Reds");
-	const [categories, setCategories] = useState(5);
-	const [colorScheme, setColorScheme] = useState(["#aaaaaa", "#fee5d9", "#fcae91", "#fb6a4a", "#de2d26", "#a50f15" ]); 
-	const [legend, setLegend] = useState(["No data", "Cat. 1", "Cat. 2", "Cat. 3", "Cat. 4", "Cat. 5", "Cat. 6", "Cat. 7", "Cat. 8", "Cat. 9", ]); 
+	const [categories, setCategories] = useState(3);
+	const [colorScheme, setColorScheme] = useState(["#aaaaaa", "#fee0d2", "#fc9272", "#de2d26"]); 
+	const [legend, setLegend] = useState(["No data", "Cat. 1", "Cat. 2", "Cat. 3", "Cat. 4", "Cat. 5", "Cat. 6", "Cat. 7", "Cat. 8", "Cat. 9"]); 
 
 	const updateScheme = (colr, cats) => {
 		setColor(colr);
 		setCategories(cats);
 		let tempScheme = colorbrewer[colr][cats];
-		console.log(colr)
+		
 		if(tempScheme[0] !== "#aaaaaa" && colr !== "Greys"){
 			tempScheme.unshift("#aaaaaa");
 		}
 		else if(tempScheme[0] !== "#ffffff" && colr === "Greys"){
 			tempScheme.unshift("#ffffff");
 		}
-		console.log(colorbrewer[colr][cats]);
+		
 		setColorScheme(tempScheme);
 	}
 
 	const updateLegend = (index, text) => {
-		let temp = legend;
+		let temp = [...legend];
 		temp[index]=text;
 		setLegend(temp)
 	}
@@ -75,10 +75,23 @@ function App() {
     			<option>8</option>
     			<option>9</option>
     		</Form.Control>
+			
 			<Form.Label>title</Form.Label>
 			<Form.Control type="text" onChange={(event)=>{setTitle(event.target.value)}} />
+
 			<Form.Label>Legend Labels</Form.Label>
-			<Form.Control type="text" maxlength="16" onChange={(event)=>{console.log(legend);updateLegend(0, event.target.value)}} />
+			<Form.Control type="text" maxLength="16" onChange={(event)=>{updateLegend(0, event.target.value)}} />
+			<Form.Control type="text" maxLength="16" onChange={(event)=>{updateLegend(1, event.target.value)}} />
+			<Form.Control type="text" maxLength="16" onChange={(event)=>{updateLegend(2, event.target.value)}} />
+			<Form.Control type="text" maxLength="16" onChange={(event)=>{updateLegend(3, event.target.value)}} />
+			<Form.Control type="text" maxLength="16" onChange={(event)=>{updateLegend(4, event.target.value)}} />
+			<Form.Control type="text" maxLength="16" onChange={(event)=>{updateLegend(5, event.target.value)}} />
+			<Form.Control type="text" maxLength="16" onChange={(event)=>{updateLegend(6, event.target.value)}} />
+			<Form.Control type="text" maxLength="16" onChange={(event)=>{updateLegend(7, event.target.value)}} />
+			<Form.Control type="text" maxLength="16" onChange={(event)=>{updateLegend(8, event.target.value)}} />
+			<Form.Control type="text" maxLength="16" onChange={(event)=>{updateLegend(9, event.target.value)}} />
+
+
 			<p>Map outline from simplemaps.com</p>
 			<p>Colors from colorbrewer2.org</p>
 			<p>SVG download from nytimes.github.io/svg-crowbar</p>
