@@ -45,7 +45,7 @@ function App() {
 
 	const LegendInput = () => {
 		let temp = []
-		for (let i=excludeNoData; i<categories; ++i){
+		for (let i=excludeNoData; i<categories+1; ++i){
 			temp.push(<Form.Control type="text" value={legend[i]} maxLength="16" onChange={(event)=>{updateLegend(i, event.target.value)}} />)
 		}
 		return temp;
