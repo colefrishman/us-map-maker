@@ -1,17 +1,24 @@
 import React, {useState} from 'react';
-import states from './data.js'
 
 const StatePath = (props) => {
 	const [value, setValue] = useState(0);
-
+	
 	return (
 		<path 
+			key={props.dataId}
 			data-id={props.dataId}
 			data-name={props.dataName}
 			d={props.d}
-			fill={props.colorScheme[Math.min(value, props.colorScheme.length-1)]}
+			fill={props.colorScheme[Math.min(props.values.get(props.dataId), props.colorScheme.length-1)]}
 			strokeWidth=".97063"
-			onClick={()=>{(value+1 >= props.colorScheme.length) ? setValue(0) : setValue((value+1) % props.colorScheme.length);}}/>
+			onClick={()=>{
+				if(props.values.get(props.dataId)+1 >= props.colorScheme.length){
+					props.updateValues(props.dataId,0);
+				}
+				else{
+					props.updateValues(props.dataId, props.values.get(props.dataId)+1 % props.colorScheme.length)
+				}
+				/*(value+1 >= props.colorScheme.length) ? setValue(0) : setValue((value+1) % props.colorScheme.length);*/}}/>
 	)
 	
 }
@@ -32,7 +39,7 @@ const LegendPath = (props) => {
 		const y=600;
 
 		return (
-			<path data-id={"L"+props.number} fill={props.colorScheme[props.number]} d={"M "+x+" " +y+" h 30 v 20 h -30 Z"} strokeWidth=".97063"/>
+			<path data-id={"L"+props.number} fill={props.colorScheme[props.number]} d={"M "+x+" " +y+" h 30 v 20 h -30 Z"} strokeWidth=".97063" key={"L"+props.number}/>
 		)
 	}
 	else{
@@ -47,13 +54,13 @@ const Legend = (props) => {
 		leg.push(<LegendLabel key={"label"+i} number={i} y="615" className="label" text={props.legend[i]} />)
 		leg.push(<LegendPath key={"rect"+i} number={i} colorScheme={props.colorScheme} strokeWidth=".97063"/>)
 	}
-	return [leg];
+	return leg;
 }
 
 const Svg = (props) => {
 	let statesJsx = [];
-	states.forEach((state)=>{
-		statesJsx.push(<StatePath key={state.id} dataId={state.id} dataName={state.name} colorScheme={props.colorScheme} d={state.coords} />)
+	props.states.forEach((state)=>{
+		statesJsx.push(<StatePath key={state.id} dataId={state.id} dataName={state.name} colorScheme={props.colorScheme} values={props.values} updateValues={props.updateValues} d={state.coords} />)
 	})
 
 	return (

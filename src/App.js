@@ -4,6 +4,15 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import colorbrewer from 'colorbrewer'
 import Svg from './Svg'
+import states from './data.js'
+
+const fillMap = () => {
+	let temp = new Map()
+	states.forEach((state)=>{
+		temp.set(state.id, 0);
+	})
+	return temp
+}
 
 function App() {
 	const [title, setTitle] = useState("Title");
@@ -12,6 +21,7 @@ function App() {
 	const [colorScheme, setColorScheme] = useState(["#aaaaaa", "#fee0d2", "#fc9272", "#de2d26"]); 
 	const [excludeNoData, setExcludeNoData] = useState(0);
 	const [legend, setLegend] = useState(["No data", "Cat. 1", "Cat. 2", "Cat. 3", "Cat. 4", "Cat. 5", "Cat. 6", "Cat. 7", "Cat. 8", "Cat. 9"]); 
+	const [values, setValues] = useState(fillMap()); 
 
 	const updateScheme = (colr, cats) => {
 		setColor(colr);
@@ -35,6 +45,10 @@ function App() {
 		setLegend(temp)
 	}
 
+	const updateValues = (key, value) => {
+		setValues((prev) => new Map(prev).set(key, value));
+	}
+
 	const downloadSvg = () => {
 		let e = document.createElement('script');
 		e.setAttribute('src', 'https://nytimes.github.io/svg-crowbar/svg-crowbar.js');
@@ -46,17 +60,17 @@ function App() {
 	const LegendInput = () => {
 		let temp = []
 		for (let i=excludeNoData; i<categories+1; ++i){
-			temp.push(<Form.Control type="text" value={legend[i]} maxLength="16" onChange={(event)=>{updateLegend(i, event.target.value)}} />)
+			temp.push(<Form.Control style={{width:"300px"}} type="text" value={legend[i]} maxLength="16" onChange={(event)=>{updateLegend(i, event.target.value)}} />)
 		}
 		return temp;
 	}
-	
+
 	return(
 		<div>
 			<h1>stats</h1>
 			<Button onClick={() => {downloadSvg()}}>Download as SVG</Button>
 			<br />
-			<Svg colorScheme={colorScheme} title={title} legend={legend} excludeNoData={excludeNoData}/>
+			<Svg colorScheme={colorScheme} title={title} legend={legend} excludeNoData={excludeNoData} values={values} updateValues={updateValues} states={states}/>
 			<br />
 			<Form.Label>sequential: </Form.Label>
 			<br />
@@ -77,7 +91,8 @@ function App() {
 			<Button style={{color:"white", backgroundColor:"#fbb4ae", borderColor:"#b3cde3"}} onClick={() => {updateScheme("Pastel1",categories)}}>pastel A</Button>
 			<Button style={{color:"white", backgroundColor:"#8dd3c7", borderColor:"#ffffb3"}} onClick={() => {updateScheme("Set3",categories)}}>light</Button>
 			
-			<Form.Check type="checkbox" label="Exclude 'No data' checkbox" onChange={() => {setExcludeNoData(1-excludeNoData)}} checked={excludeNoData} />
+			<Form.Check type="checkbox" label="Exclude 'No data'" onChange={() => {setExcludeNoData(1-excludeNoData)}} checked={excludeNoData} />
+
 			<Form.Label>categories</Form.Label>
 
 			<Form.Control as="select" onChange={(event)=>{updateScheme(color, event.target.value)}} value={categories}>
