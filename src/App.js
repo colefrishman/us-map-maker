@@ -67,32 +67,41 @@ function App() {
 	}
 
 	const fillValuesFromCsv = (file) => {
-		
-		let reader = new FileReader();
-		reader.readAsText(file);
-		reader.onload = (e) => {	
-			let str = (reader.result).toString();
+		if(file===""){return;}
+		try {
+			let reader = new FileReader();
+			reader.readAsText(file);
+			reader.onload = (e) => {	
+				let str = (reader.result).toString();
 
-			let col = color;
-			let cats = categories;
-			let titl = title;
-			let exNoData = excludeNoData;
+				let col = color;
+				let cats = categories;
+				let titl = title;
+				let exNoData = excludeNoData;
 
-			str.split("\n").forEach(line => {
-				const splitLine = line.split(",")
-				const key = splitLine[0]
-				const val = splitLine[1]
-				switch (key){
-					case "categories": cats = parseInt(val); break;
-					case "color": col = val.trim(); break;
-					case "title": titl = val; break;
-					case "excludeNoData": exNoData = parseInt(val); break;
-					default: updateValues(key, val);
-				}
-			})
-			updateScheme(col, cats)
-			setTitle(titl);
-			setExcludeNoData(exNoData)
+				str.split("\n").forEach(line => {
+					const splitLine = line.split(",")
+					const key = splitLine[0]
+					const val = splitLine[1]
+					switch (key){
+						case "categories": cats = parseInt(val); break;
+						case "color": col = val.trim(); break;
+						case "title": titl = val; break;
+						case "excludeNoData": exNoData = parseInt(val); break;
+						default: updateValues(key, val);
+					}
+				})
+				updateScheme(col, cats)
+				setTitle(titl);
+				setExcludeNoData(exNoData)
+			}
+			alert("File Uploaded!");
+		}
+		catch(exception){
+			alert("Upload a file in the correct format");
+		}
+		finally{
+
 		}
 	}
 
