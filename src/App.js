@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import colorbrewer from 'colorbrewer'
 import Svg from './Svg'
 import states from './data.js'
-
+import fileDownload from 'js-file-download'
 
 
 const fillMap = () => {
@@ -76,6 +76,7 @@ function App() {
 			let col = color;
 			let cats = categories;
 			let titl = title;
+			let exNoData = excludeNoData;
 
 			str.split("\n").forEach(line => {
 				const splitLine = line.split(",")
@@ -85,12 +86,32 @@ function App() {
 					case "categories": cats = parseInt(val); break;
 					case "color": col = val.trim(); break;
 					case "title": titl = val; break;
+					case "excludeNoData": exNoData = parseInt(val); break;
 					default: updateValues(key, val);
 				}
 			})
 			updateScheme(col, cats)
 			setTitle(titl);
+			setExcludeNoData(exNoData)
 		}
+	}
+
+	const generateCsv = () => {
+		let out = "";
+		out+= `title,${title}\n`
+		out+= `color,${color}\n`
+		out+= `categories,${categories}\n`
+		out+= `excludeNoData,${excludeNoData}\n`
+
+		values.forEach((val, stateId)=>{
+			out+= `${stateId},${val}\n`
+		})
+
+		return out;
+	}
+
+	const exportToCsv = () => {
+		fileDownload(generateCsv(), `us-map-maker-${title}.csv`);
 	}
 	
 
@@ -98,7 +119,8 @@ function App() {
 		<div>
 			<h1>stats</h1>
 			<Form.File id="dataImport" label="Import data" accept="text/csv" onChange={(event) => {setCsvPath(event.target.files[0])}}/>
-			<Button onClick={() => {fillValuesFromCsv(csvPath)}}>Fill values from csv</Button>
+			<Button onClick={() => {fillValuesFromCsv(csvPath)}}>Import from csv</Button>
+			<Button onClick={() => {exportToCsv()}}>Export to csv</Button>
 
 			<Button onClick={() => {downloadSvg()}}>Download as SVG</Button>
 			<br />
@@ -123,7 +145,7 @@ function App() {
 			<Button style={{color:"white", backgroundColor:"#fbb4ae", borderColor:"#b3cde3"}} onClick={() => {updateScheme("Pastel1",categories)}}>pastel A</Button>
 			<Button style={{color:"white", backgroundColor:"#8dd3c7", borderColor:"#ffffb3"}} onClick={() => {updateScheme("Set3",categories)}}>light</Button>
 			
-			<Form.Check type="checkbox" label="Exclude 'No data'" onChange={() => {setExcludeNoData(1-excludeNoData)}} checked={excludeNoData} />
+			<Form.Check type="checkbox" label="Exclude 'No data'" onChange={() => {setExcludeNoData((1-excludeNoData)%2)}} checked={excludeNoData} />
 
 			<Form.Label>categories</Form.Label>
 
