@@ -3348,7 +3348,7 @@
     "isobject" "^3.0.0"
     "static-extend" "^0.1.1"
 
-"classnames@^2.1.2", "classnames@^2.2.6":
+"classnames@^2.2.6":
   "integrity" "sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q=="
   "resolved" "https://registry.npmjs.org/classnames/-/classnames-2.2.6.tgz"
   "version" "2.2.6"
@@ -9088,7 +9088,7 @@
     "react-is" "^16.3.2"
     "warning" "^4.0.0"
 
-"prop-types@^15.6.0", "prop-types@^15.6.2", "prop-types@^15.7.2":
+"prop-types@^15.6.2", "prop-types@^15.7.2":
   "integrity" "sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ=="
   "resolved" "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz"
   "version" "15.7.2"
@@ -9317,30 +9317,10 @@
     "object-assign" "^4.1.1"
     "scheduler" "^0.20.1"
 
-"react-editext@^3.17.1":
-  "integrity" "sha512-PO3BUG9pTed43iC6j74rhDGCM+H3cl6HDshjYBVx6d+GP7uDy4VDXTlooQHdEuH8LfK9p6DA056K3oxYtDr2vg=="
-  "resolved" "https://registry.npmjs.org/react-editext/-/react-editext-3.17.1.tgz"
-  "version" "3.17.1"
-
 "react-error-overlay@^6.0.8":
   "integrity" "sha512-HvPuUQnLp5H7TouGq3kzBeioJmXms1wHy9EGjz2OURWBp4qZO6AfGEcnxts1D/CbwPLRAgTMPCEgYhA3sEM4vw=="
   "resolved" "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.8.tgz"
   "version" "6.0.8"
-
-"react-fast-compare@^2.0.4":
-  "integrity" "sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw=="
-  "resolved" "https://registry.npmjs.org/react-fast-compare/-/react-fast-compare-2.0.4.tgz"
-  "version" "2.0.4"
-
-"react-image-mapper@^0.0.15":
-  "integrity" "sha512-rm3dqbsfgoA/re8BuxSCuVK7UbpQ3zg+eclTqhyyRElk7zjOq8SP8VhWJ8neZH8LQWqar9aRcq0UBI3ZyRMtLA=="
-  "resolved" "https://registry.npmjs.org/react-image-mapper/-/react-image-mapper-0.0.15.tgz"
-  "version" "0.0.15"
-  dependencies:
-    "classnames" "^2.1.2"
-    "prop-types" "^15.6.0"
-    "react-fast-compare" "^2.0.4"
-    "require-dir" "1.2.0"
 
 "react-is@^16.3.2", "react-is@^16.8.1":
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
@@ -9453,7 +9433,7 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
-"react@*", "react@^0.14.0", "react@^15.0.0 || ^16.0.0", "react@^16.8.0", "react@^17.0.1", "react@>=0.14.0", "react@>=15.0.0", "react@>=16.3.0", "react@>=16.3.2", "react@>=16.6.0", "react@>=16.8.0", "react@17.0.1":
+"react@*", "react@^16.8.0", "react@^17.0.1", "react@>=0.14.0", "react@>=15.0.0", "react@>=16.3.0", "react@>=16.3.2", "react@>=16.6.0", "react@>=16.8.0", "react@17.0.1":
   "integrity" "sha512-lG9c9UuMHdcAexXtigOZLX8exLWkW0Ku29qPRU8uhF2R9BN96dLCt0psvzPLlHc5OWkgymP3qwTRgbnw5BKx3w=="
   "resolved" "https://registry.yarnpkg.com/react/-/react-17.0.1.tgz"
   "version" "17.0.1"
@@ -9719,11 +9699,6 @@
     "tough-cookie" "~2.5.0"
     "tunnel-agent" "^0.6.0"
     "uuid" "^3.3.2"
-
-"require-dir@1.2.0":
-  "integrity" "sha512-LY85DTSu+heYgDqq/mK+7zFHWkttVNRXC9NKcKGyuGLdlsfbjEPrIEYdCVrx6hqnJb+xSu3Lzaoo8VnmOhhjNA=="
-  "resolved" "https://registry.npmjs.org/require-dir/-/require-dir-1.2.0.tgz"
-  "version" "1.2.0"
 
 "require-directory@^2.1.1":
   "integrity" "sha1-jGStX9MNqxyXbiNE/+f3kqam30I="

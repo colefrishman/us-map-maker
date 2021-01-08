@@ -6,6 +6,8 @@ import colorbrewer from 'colorbrewer'
 import Svg from './Svg'
 import states from './data.js'
 
+
+
 const fillMap = () => {
 	let temp = new Map()
 	states.forEach((state)=>{
@@ -21,13 +23,13 @@ function App() {
 	const [colorScheme, setColorScheme] = useState(["#aaaaaa", "#fee0d2", "#fc9272", "#de2d26"]); 
 	const [excludeNoData, setExcludeNoData] = useState(0);
 	const [legend, setLegend] = useState(["No data", "Cat. 1", "Cat. 2", "Cat. 3", "Cat. 4", "Cat. 5", "Cat. 6", "Cat. 7", "Cat. 8", "Cat. 9"]); 
-	const [values, setValues] = useState(fillMap()); 
+	const [values, setValues] = useState(fillMap());
+	const [csvPath, setCsvPath] = useState("");
 
 	const updateScheme = (colr, cats) => {
 		setColor(colr);
 		setCategories(cats);
 		let tempScheme = colorbrewer[colr][cats];
-		
 		if(tempScheme[0] !== "#aaaaaa" && colr !== "Greys"){
 			tempScheme.unshift("#aaaaaa");
 		}
@@ -35,7 +37,6 @@ function App() {
 			tempScheme.unshift("#ffffff");
 		}
 
-		
 		setColorScheme(tempScheme);
 	}
 
@@ -60,14 +61,42 @@ function App() {
 	const LegendInput = () => {
 		let temp = []
 		for (let i=excludeNoData; i<categories+1; ++i){
-			temp.push(<Form.Control style={{width:"300px"}} type="text" value={legend[i]} maxLength="16" onChange={(event)=>{updateLegend(i, event.target.value)}} />)
+			temp.push(<Form.Control key={i} style={{width:"300px"}} type="text" value={legend[i]} maxLength="16" onChange={(event)=>{updateLegend(i, event.target.value)}} />)
 		}
 		return temp;
 	}
 
+	const fillValuesFromCsv = (file) => {
+		
+		let reader = new FileReader();
+		reader.readAsText(file);
+		reader.onload = (e) => {	
+			let str = (reader.result).toString();
+
+			let col = color;
+			let cats = categories;
+
+			str.split("\n").forEach(line => {
+				const splitLine = line.split(",")
+				const key = splitLine[0]
+				const val = splitLine[1]
+				switch (key){
+					case "categories": cats = parseInt(val); break;
+					case "color": col = val.trim(); break;
+					default: updateValues(key, val);
+				}
+			})
+			updateScheme(col, cats)
+		}
+	}
+	
+
 	return(
 		<div>
 			<h1>stats</h1>
+			<Form.File id="dataImport" label="Import data" accept="text/csv" onChange={(event) => {setCsvPath(event.target.files[0])}}/>
+			<Button onClick={() => {fillValuesFromCsv(csvPath)}}>Fill values from csv</Button>
+
 			<Button onClick={() => {downloadSvg()}}>Download as SVG</Button>
 			<br />
 			<Svg colorScheme={colorScheme} title={title} legend={legend} excludeNoData={excludeNoData} values={values} updateValues={updateValues} states={states}/>
