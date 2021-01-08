@@ -6,6 +6,7 @@ import colorbrewer from 'colorbrewer'
 import Svg from './Svg'
 import states from './data.js'
 import fileDownload from 'js-file-download'
+import {saveSvgAsPng} from 'save-svg-as-png';
 
 
 const fillMap = () => {
@@ -120,7 +121,11 @@ function App() {
 	}
 
 	const exportToCsv = () => {
-		fileDownload(generateCsv(), `us-map-maker-${title}.csv`);
+		fileDownload(generateCsv(), `${title}-us-map-maker.csv`);
+	}
+
+	const downloadAsPng = () => {
+		saveSvgAsPng(document.getElementById("map"), `${title}-us-map-maker.png`, {top: -50});
 	}
 	
 
@@ -130,10 +135,11 @@ function App() {
 			<Form.File id="dataImport" label="Import data" accept="text/csv" onChange={(event) => {setCsvPath(event.target.files[0])}}/>
 			<Button onClick={() => {fillValuesFromCsv(csvPath)}}>Import from csv</Button>
 			<Button onClick={() => {exportToCsv()}}>Export to csv</Button>
-
-			<Button onClick={() => {downloadSvg()}}>Download as SVG</Button>
 			<br />
-			<Svg colorScheme={colorScheme} title={title} legend={legend} excludeNoData={excludeNoData} values={values} updateValues={updateValues} states={states}/>
+			<Button onClick={() => {downloadSvg()}}>Download as SVG</Button>
+			<Button onClick={() => {downloadAsPng()}}>Download as PNG</Button>
+			<br />
+			<Svg colorScheme={colorScheme} title={title} legend={legend} excludeNoData={excludeNoData} values={values} updateValues={updateValues} states={states} id="map"/>
 			<br />
 			<Form.Label>sequential: </Form.Label>
 			<br />

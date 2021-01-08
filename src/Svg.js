@@ -65,7 +65,7 @@ const Svg = (props) => {
 	})
 
 	return (
-	<svg fill="none" stroke="#000" strokeLinejoin="round" enable_background="new 0 0 1000 589" pretty_print="False" version="1.1" viewBox="0 -50 1200 800" width="50%">
+	<svg fill="none" stroke="#000" strokeLinejoin="round" enable_background="new 0 0 1000 589" pretty_print="False" version="1.1" viewBox="0 -50 1200 800" width="50%" id={props.id}>
 		<defs>
 		<style type="text/css">{
 			"path { fill-rule: evenodd; }"+

@@ -14,11 +14,17 @@ An example CSV file is included in the root directory
 
 ## TODO:
 
-Better Documentation
+Documentation
 
 Unit Tests
 
 Font options for title and legend
+
+Background Color options
+
+Custom Color Schemes
+
+Support for up to 11 categories, rather than the current max of 9 (see colorbrewer2.org color pallets)
 
 Legend titles
 
