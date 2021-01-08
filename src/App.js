@@ -52,10 +52,8 @@ function App() {
 	}
 
 	const downloadSvg = () => {
-		let e = document.createElement('script');
-		e.setAttribute('src', 'https://nytimes.github.io/svg-crowbar/svg-crowbar.js');
-		e.setAttribute('class', 'svg-crowbar');
-		document.body.appendChild(e);
+		fileDownload(document.getElementById("map").outerHTML, `${title}-us-map-maker.svg`);
+
 	}
 
 
