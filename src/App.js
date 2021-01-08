@@ -60,8 +60,8 @@ function App() {
 	const LegendInput = () => {
 		let temp = []
 		for (let i=excludeNoData; i<=categories; ++i){
-			temp.push(<Form.Control key={i} style={{width:"300px"}} type="text" value={legend[i]} maxLength="12" onChange={(event)=>{updateLegend(i, event.target.value)}} />)
-			
+			temp.push(<Form.Control key={i} style={{width:"300px", marginLeft:"10px", marginBottom:"5px"}}
+			 type="text" value={legend[i]} maxLength="12" onChange={(event)=>{updateLegend(i, event.target.value)}} />)
 		}
 		return temp;
 	}
@@ -130,56 +130,59 @@ function App() {
 
 	return(
 		<div>
-			<h1>stats</h1>
-			<Form.File id="dataImport" label="Import data" accept="text/csv" onChange={(event) => {setCsvPath(event.target.files[0])}}/>
-			<Button onClick={() => {fillValuesFromCsv(csvPath)}}>Import from csv</Button>
-			<Button onClick={() => {exportToCsv()}}>Export to csv</Button>
-			<br />
-			<Button onClick={() => {downloadSvg()}}>Download as SVG</Button>
-			<Button onClick={() => {downloadAsPng()}}>Download as PNG</Button>
-			<br />
-			<Svg colorScheme={colorScheme} title={title} legend={legend} excludeNoData={excludeNoData} values={values} updateValues={updateValues} states={states} id="map"/>
-			<br />
-			<Form.Label>sequential: </Form.Label>
-			<br />
-			<Button style={{color:"white", backgroundColor:"green", borderColor:"black"}} onClick={() => {updateScheme("Greens",categories)}}>green</Button>
-			<Button style={{color:"white", backgroundColor:"red", borderColor:"black"}} onClick={() => {updateScheme("Reds",categories)}}>red</Button>
-			<Button style={{color:"white", backgroundColor:"blue", borderColor:"black"}} onClick={() => {updateScheme("Blues",categories)}}>blue</Button>
-			<Button style={{color:"white", backgroundColor:"darkgray", borderColor:"black"}} onClick={() => {updateScheme("Greys",categories)}}>gray</Button>
-			<Button style={{color:"white", backgroundColor:"orange", borderColor:"black"}} onClick={() => {updateScheme("Oranges",categories)}}>orange</Button>
-			<Button style={{color:"white", backgroundColor:"purple", borderColor:"black"}} onClick={() => {updateScheme("Purples",categories)}}>purple</Button>
-			<br />
-			<Form.Label>diverging: </Form.Label>
-			<br />
-			<Button style={{color:"white", backgroundColor:"blue", borderColor:"red"}} onClick={() => {updateScheme("RdBu",categories)}}>election</Button>
-			<br />
-			<Form.Label>qualitative: </Form.Label>
-			<br />
-			<Button style={{color:"white", backgroundColor:"#e41a1c", borderColor:"#377eb8"}} onClick={() => {updateScheme("Set1",categories)}}>dark A</Button>
-			<Button style={{color:"white", backgroundColor:"#fbb4ae", borderColor:"#b3cde3"}} onClick={() => {updateScheme("Pastel1",categories)}}>pastel A</Button>
-			<Button style={{color:"white", backgroundColor:"#8dd3c7", borderColor:"#ffffb3"}} onClick={() => {updateScheme("Set3",categories)}}>light</Button>
-			
-			<Form.Check type="checkbox" label="Exclude 'No data'" onChange={() => {setExcludeNoData((1-excludeNoData)%2)}} checked={excludeNoData} />
-
-			<Form.Label>categories</Form.Label>
-
-			<Form.Control as="select" onChange={(event)=>{updateScheme(color, parseInt(event.target.value))}} value={categories}>
-    			<option>3</option>
-    			<option>4</option>
-    			<option>5</option>
-    			<option>6</option>
-    			<option>7</option>
-    			<option>8</option>
-    			<option>9</option>
-    		</Form.Control>
-			
-			<Form.Label>title</Form.Label>
-			<Form.Control type="text" onChange={(event)=>{setTitle(event.target.value)}} value={title}/>
-
-			<Form.Label>Legend Labels</Form.Label>
-			
-			{LegendInput()}
-
+			<div id="mapsplit">
+				<h1>stats</h1>
+				<Form.File id="dataImport" label="Import data" accept="text/csv" onChange={(event) => {setCsvPath(event.target.files[0])}}/>
+				<Button onClick={() => {fillValuesFromCsv(csvPath)}}>Import from csv</Button>
+				<Button onClick={() => {exportToCsv()}}>Export to csv</Button>
+				<br />
+				<Button onClick={() => {downloadSvg()}}>Download as SVG</Button>
+				<Button onClick={() => {downloadAsPng()}}>Download as PNG</Button>
+				<br />
+				<Svg colorScheme={colorScheme} title={title} legend={legend} excludeNoData={excludeNoData} values={values} updateValues={updateValues} states={states} id="map"/>
+			</div>
+			<div id="optionssplit">
+				<Form.Label>sequential: </Form.Label>
+				<br />
+				<Button style={{color:"white", backgroundColor:"green", borderColor:"black"}} onClick={() => {updateScheme("Greens",categories)}}>green</Button>
+				<Button style={{color:"white", backgroundColor:"red", borderColor:"black"}} onClick={() => {updateScheme("Reds",categories)}}>red</Button>
+				<Button style={{color:"white", backgroundColor:"blue", borderColor:"black"}} onClick={() => {updateScheme("Blues",categories)}}>blue</Button>
+				<Button style={{color:"white", backgroundColor:"darkgray", borderColor:"black"}} onClick={() => {updateScheme("Greys",categories)}}>gray</Button>
+				<Button style={{color:"white", backgroundColor:"orange", borderColor:"black"}} onClick={() => {updateScheme("Oranges",categories)}}>orange</Button>
+				<Button style={{color:"white", backgroundColor:"purple", borderColor:"black"}} onClick={() => {updateScheme("Purples",categories)}}>purple</Button>
+				<br />
+				<Form.Label>diverging: </Form.Label>
+				<br />
+				<Button style={{color:"white", backgroundColor:"blue", borderColor:"red"}} onClick={() => {updateScheme("RdBu",categories)}}>election</Button>
+				<br />
+				<Form.Label>qualitative: </Form.Label>
+				<br />
+				<Button style={{color:"white", backgroundColor:"#e41a1c", borderColor:"#377eb8"}} onClick={() => {updateScheme("Set1",categories)}}>dark A</Button>
+				<Button style={{color:"white", backgroundColor:"#fbb4ae", borderColor:"#b3cde3"}} onClick={() => {updateScheme("Pastel1",categories)}}>pastel A</Button>
+				<Button style={{color:"white", backgroundColor:"#8dd3c7", borderColor:"#ffffb3"}} onClick={() => {updateScheme("Set3",categories)}}>light</Button>
+				
+				<Form.Check type="checkbox" label="Exclude 'No data'" onChange={() => {setExcludeNoData((1-excludeNoData)%2)}} checked={excludeNoData} />
+	
+				<Form.Label>categories</Form.Label>
+	
+				<Form.Control as="select" style={{width:"300px", marginLeft:"10px", marginBottom:"5px"}} onChange={(event)=>{updateScheme(color, parseInt(event.target.value))}} value={categories}>
+    				<option>3</option>
+    				<option>4</option>
+    				<option>5</option>
+    				<option>6</option>
+    				<option>7</option>
+    				<option>8</option>
+    				<option>9</option>
+    			</Form.Control>
+	
+				<Form.Label>title</Form.Label>
+				<Form.Control type="text" style={{width:"300px", marginLeft:"10px", marginBottom:"5px"}} onChange={(event)=>{setTitle(event.target.value)}} value={title}/>
+	
+				<Form.Label>Legend Labels</Form.Label>
+				
+				{LegendInput()}
+			</div>
+			<div id="credits"></div> 
 			<p>Map outline from simplemaps.com</p>
 			<p>Colors from colorbrewer2.org</p>
 			<p>SVG download from nytimes.github.io/svg-crowbar</p>
