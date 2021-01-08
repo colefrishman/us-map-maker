@@ -75,6 +75,7 @@ function App() {
 
 			let col = color;
 			let cats = categories;
+			let titl = title;
 
 			str.split("\n").forEach(line => {
 				const splitLine = line.split(",")
@@ -83,10 +84,12 @@ function App() {
 				switch (key){
 					case "categories": cats = parseInt(val); break;
 					case "color": col = val.trim(); break;
+					case "title": titl = val; break;
 					default: updateValues(key, val);
 				}
 			})
 			updateScheme(col, cats)
+			setTitle(titl);
 		}
 	}
 	

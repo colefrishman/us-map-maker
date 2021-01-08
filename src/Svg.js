@@ -1,24 +1,25 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 const StatePath = (props) => {
-	const [value, setValue] = useState(0);
-	
+	const oldVal = parseInt(props.values.get(props.dataId));
+
 	return (
 		<path 
 			key={props.dataId}
 			data-id={props.dataId}
 			data-name={props.dataName}
 			d={props.d}
-			fill={props.colorScheme[Math.min(props.values.get(props.dataId), props.colorScheme.length-1)]}
+			fill={props.colorScheme[Math.min(oldVal, props.colorScheme.length-1)]}
 			strokeWidth=".97063"
 			onClick={()=>{
-				if(props.values.get(props.dataId)+1 >= props.colorScheme.length){
+				if(oldVal+1 >= props.colorScheme.length){
 					props.updateValues(props.dataId,0);
 				}
 				else{
-					props.updateValues(props.dataId, props.values.get(props.dataId)+1 % props.colorScheme.length)
+					props.updateValues(props.dataId, oldVal+1 % props.colorScheme.length);
 				}
-				/*(value+1 >= props.colorScheme.length) ? setValue(0) : setValue((value+1) % props.colorScheme.length);*/}}/>
+			}}
+			/>
 	)
 	
 }
