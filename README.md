@@ -18,8 +18,6 @@ Better Documentation
 
 Unit Tests
 
-CSV export data
-
 Font options for title and legend
 
 Legend titles
