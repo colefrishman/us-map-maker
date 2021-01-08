@@ -25,8 +25,8 @@ const StatePath = (props) => {
 }
 
 const LegendLabel = (props) => {
-	const x=235+parseInt(props.number)*100;
-	const y=615;
+	const x=(85+(parseInt(props.number)%5)*225);
+	const y=(615+(props.number>=5)*40);
 
 	return (
 		<text x={x} y={y} className="label">{props.text}</text>
@@ -36,8 +36,8 @@ const LegendLabel = (props) => {
 
 const LegendPath = (props) => {
 	if(props.number >= 0){
-		const x=(200+parseInt(props.number)*100);
-		const y=600;
+		const x=(50+(parseInt(props.number)%5)*225);
+		const y=(600+(props.number>=5)*40);
 
 		return (
 			<path data-id={"L"+props.number} fill={props.colorScheme[props.number]} d={"M "+x+" " +y+" h 30 v 20 h -30 Z"} strokeWidth=".97063" key={"L"+props.number}/>
@@ -52,7 +52,7 @@ const Legend = (props) => {
 	let leg = []
 
 	for(let i=props.excludeNoData; i<props.colorScheme.length; ++i){
-		leg.push(<LegendLabel key={"label"+i} number={i} y="615" className="label" text={props.legend[i]} />)
+		leg.push(<LegendLabel key={"label"+i} number={i} className="label" text={props.legend[i]} />)
 		leg.push(<LegendPath key={"rect"+i} number={i} colorScheme={props.colorScheme} strokeWidth=".97063"/>)
 	}
 	return leg;

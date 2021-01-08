@@ -59,8 +59,9 @@ function App() {
 
 	const LegendInput = () => {
 		let temp = []
-		for (let i=excludeNoData; i<categories+1; ++i){
-			temp.push(<Form.Control key={i} style={{width:"300px"}} type="text" value={legend[i]} maxLength="16" onChange={(event)=>{updateLegend(i, event.target.value)}} />)
+		for (let i=excludeNoData; i<=categories; ++i){
+			temp.push(<Form.Control key={i} style={{width:"300px"}} type="text" value={legend[i]} maxLength="12" onChange={(event)=>{updateLegend(i, event.target.value)}} />)
+			
 		}
 		return temp;
 	}
@@ -162,7 +163,7 @@ function App() {
 
 			<Form.Label>categories</Form.Label>
 
-			<Form.Control as="select" onChange={(event)=>{updateScheme(color, event.target.value)}} value={categories}>
+			<Form.Control as="select" onChange={(event)=>{updateScheme(color, parseInt(event.target.value))}} value={categories}>
     			<option>3</option>
     			<option>4</option>
     			<option>5</option>
