@@ -6,7 +6,7 @@ There are customization options below the Map itself.
 
 Then just save it as an SVG!
 
-
+The background color can take color names (white, red, lightblue etc.) or hex values (#ffffff, #ff0000, etc.)
 
 An example CSV file is included in the root directory
 
@@ -19,8 +19,6 @@ Documentation
 Unit Tests
 
 Font options for title and legend
-
-Background Color options
 
 Custom Color Schemes
 

@@ -8,7 +8,6 @@ import states from './data.js'
 import fileDownload from 'js-file-download'
 import {saveSvgAsPng} from 'save-svg-as-png';
 
-
 const fillMap = () => {
 	let temp = new Map()
 	states.forEach((state)=>{
@@ -26,16 +25,20 @@ function App() {
 	const [legend, setLegend] = useState(["No data", "Cat. 1", "Cat. 2", "Cat. 3", "Cat. 4", "Cat. 5", "Cat. 6", "Cat. 7", "Cat. 8", "Cat. 9"]); 
 	const [values, setValues] = useState(fillMap());
 	const [csvPath, setCsvPath] = useState("");
+	const [backgroundColor, setBackgroundColor] = useState("white");
 
 	const updateScheme = (colr, cats) => {
 		setColor(colr);
 		setCategories(cats);
 		let tempScheme = colorbrewer[colr][cats];
-		if(tempScheme[0] !== "#aaaaaa" && colr !== "Greys"){
+		if(tempScheme[0] !== "#aaaaaa" && !(["Greys","RdGy"].includes(colr))){
 			tempScheme.unshift("#aaaaaa");
 		}
-		else if(tempScheme[0] !== "#ffffff" && colr === "Greys"){
+		else if(tempScheme[0] !== "#ffffff" && (["Greys"].includes(colr))){
 			tempScheme.unshift("#ffffff");
+		}
+		else if(tempScheme[0] !== "#000000" && (["RdGy"].includes(colr))){
+			tempScheme.unshift("#000000");
 		}
 
 		setColorScheme(tempScheme);
@@ -139,7 +142,8 @@ function App() {
 				<Button onClick={() => {downloadSvg()}}>Download as SVG</Button>
 				<Button onClick={() => {downloadAsPng()}}>Download as PNG</Button>
 				<br />
-				<Svg colorScheme={colorScheme} title={title} legend={legend} excludeNoData={excludeNoData} values={values} updateValues={updateValues} states={states} id="map"/>
+				<Svg colorScheme={colorScheme} title={title} legend={legend} excludeNoData={excludeNoData} backgroundColor={backgroundColor} values={values} updateValues={updateValues}
+					states={states} id="map"/>
 			</div>
 			<div id="optionssplit">
 				<Form.Label>sequential: </Form.Label>
@@ -153,7 +157,15 @@ function App() {
 				<br />
 				<Form.Label>diverging: </Form.Label>
 				<br />
-				<Button style={{color:"white", backgroundColor:"blue", borderColor:"red"}} onClick={() => {updateScheme("RdBu",categories)}}>election</Button>
+				<Button style={{color:"white", backgroundColor:"blue", borderColor:"red"}} onClick={() => {updateScheme("RdBu",categories)}}>Red-White-Blue</Button>
+				{/*<Button style={{color:"white", backgroundColor:"darkgray", borderColor:"red"}} onClick={() => {updateScheme("RdGy",categories)}}>Red-Gray</Button>
+				<Button style={{color:"yellow", backgroundColor:"blue", borderColor:"red"}} onClick={() => {updateScheme("RdYlBu",categories)}}>Red-Yellow-Blue</Button>
+				<Button style={{color:"yellow", backgroundColor:"red", borderColor:"green"}} onClick={() => {updateScheme("RdYlGn",categories)}}>Red-Yellow-Green</Button>
+				<Button style={{color:"yellow", backgroundColor:"red", borderColor:"blue"}} onClick={() => {updateScheme("Spectral",categories)}}>Spectral</Button>
+				<Button style={{color:"white", backgroundColor:"purple", borderColor:"orange"}} onClick={() => {updateScheme("PuOr",categories)}}>Orange-Purple</Button>
+				<Button style={{color:"white", backgroundColor:"green", borderColor:"purple"}} onClick={() => {updateScheme("PRGn",categories)}}>Purple-Green</Button>
+				<Button style={{color:"white", backgroundColor:"green", borderColor:"pink"}} onClick={() => {updateScheme("PiYG",categories)}}>Pink-Yellowgreen</Button>
+				<Button style={{color:"white", backgroundColor:"brown", borderColor:"blue"}} onClick={() => {updateScheme("BrBG",categories)}}>Brown-Bluegreen</Button>*/}
 				<br />
 				<Form.Label>qualitative: </Form.Label>
 				<br />
@@ -177,6 +189,10 @@ function App() {
 	
 				<Form.Label>title</Form.Label>
 				<Form.Control type="text" style={{width:"300px", marginLeft:"10px", marginBottom:"5px"}} onChange={(event)=>{setTitle(event.target.value)}} value={title}/>
+	
+				<Form.Label>Background Color</Form.Label>
+				<span style={{backgroundColor:backgroundColor, width:"30px", height:"30px"}}/>
+				<Form.Control type="text" style={{width:"300px", marginLeft:"10px", marginBottom:"5px"}} onChange={(event)=>{setBackgroundColor(event.target.value)}} value={backgroundColor}/>
 	
 				<Form.Label>Legend Labels</Form.Label>
 				

@@ -65,7 +65,9 @@ const Svg = (props) => {
 	})
 
 	return (
-	<svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink= "http://www.w3.org/1999/xlink"	fill="none" stroke="#000" strokeLinejoin="round" enable_background="new 0 0 1000 589" pretty_print="False" version="1.1" viewBox="0 -50 1200 800" width="100%" id={props.id}>
+	<svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink= "http://www.w3.org/1999/xlink"	fill="none" stroke="#000"
+	 	strokeLinejoin="round" enable_background="new 0 0 1000 589" pretty_print="False" version="1.1" viewBox="0 -50 1200 800"
+		width="100%" style={{backgroundColor:props.backgroundColor}}id={props.id}>
 		<defs>
 		<style type="text/css">{
 			"path { fill-rule: evenodd; }"+
