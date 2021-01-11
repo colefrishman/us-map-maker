@@ -71,7 +71,7 @@ const Svg = (props) => {
 		<defs>
 		<style type="text/css">{
 			"path { fill-rule: evenodd; }"+
-			".label {font: 12px serif, textAlign:center}"}</style>
+			`.label {font: 12px ${props.font}; textAlign:center}`}</style>
 		</defs>
 		<metadata>
 			<views>
@@ -82,7 +82,7 @@ const Svg = (props) => {
 				</view>
 			</views>
 		</metadata>
-		<text x="50%" y="-10" adominant-baseline="middle" textAnchor="middle" style={{font: "50px sans-serif", textAlign:"center"}}>{props.title}</text>
+		<text x="50%" y="-10" adominant-baseline="middle" textAnchor="middle" style={{font: `50px ${props.font}`, textAlign:"center"}}>{props.title}</text>
 		<text x="1035" y="215" className="label">NH</text>
 		<text x="1035" y="235" className="label">VT</text>
 		<text x="1035" y="255" className="label">MA</text>

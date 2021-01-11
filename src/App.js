@@ -26,6 +26,7 @@ function App() {
 	const [values, setValues] = useState(fillMap());
 	const [csvPath, setCsvPath] = useState("");
 	const [backgroundColor, setBackgroundColor] = useState("white");
+	const [font, setFont] = useState("serif");
 
 	const updateScheme = (colr, cats) => {
 		setColor(colr);
@@ -70,7 +71,7 @@ function App() {
 	}
 
 	const fillValuesFromCsv = (file) => {
-		if(file===""){return;}
+		if(file===""){alert("Upload a file in the correct format"); return;}
 		try {
 			let reader = new FileReader();
 			reader.readAsText(file);
@@ -134,30 +135,30 @@ function App() {
 	return(
 		<div>
 			<div id="mapsplit">
-				<h1>stats</h1>
+				<h1>U.S. Map Maker</h1>
 				<Form.File id="dataImport" label="Import data" accept="text/csv" onChange={(event) => {setCsvPath(event.target.files[0])}}/>
-				<Button onClick={() => {fillValuesFromCsv(csvPath)}}>Import from csv</Button>
-				<Button onClick={() => {exportToCsv()}}>Export to csv</Button>
+				<Button onClick={() => {fillValuesFromCsv(csvPath)}}>Import from CSV</Button>
+				<Button onClick={() => {exportToCsv()}}>Export to CSV</Button>
 				<br />
 				<Button onClick={() => {downloadSvg()}}>Download as SVG</Button>
 				<Button onClick={() => {downloadAsPng()}}>Download as PNG</Button>
 				<br />
 				<Svg colorScheme={colorScheme} title={title} legend={legend} excludeNoData={excludeNoData} backgroundColor={backgroundColor} values={values} updateValues={updateValues}
-					states={states} id="map"/>
+					states={states} font={font} id="map"/>
 			</div>
 			<div id="optionssplit">
-				<Form.Label>sequential: </Form.Label>
+				<Form.Label>Sequential: </Form.Label>
 				<br />
-				<Button style={{color:"white", backgroundColor:"green", borderColor:"black"}} onClick={() => {updateScheme("Greens",categories)}}>green</Button>
-				<Button style={{color:"white", backgroundColor:"red", borderColor:"black"}} onClick={() => {updateScheme("Reds",categories)}}>red</Button>
-				<Button style={{color:"white", backgroundColor:"blue", borderColor:"black"}} onClick={() => {updateScheme("Blues",categories)}}>blue</Button>
-				<Button style={{color:"white", backgroundColor:"darkgray", borderColor:"black"}} onClick={() => {updateScheme("Greys",categories)}}>gray</Button>
-				<Button style={{color:"white", backgroundColor:"orange", borderColor:"black"}} onClick={() => {updateScheme("Oranges",categories)}}>orange</Button>
-				<Button style={{color:"white", backgroundColor:"purple", borderColor:"black"}} onClick={() => {updateScheme("Purples",categories)}}>purple</Button>
+				<Button style={{color:"white", backgroundColor:"green", borderColor:"black"}} onClick={() => {updateScheme("Greens",categories)}}>Green</Button>
+				<Button style={{color:"white", backgroundColor:"red", borderColor:"black"}} onClick={() => {updateScheme("Reds",categories)}}>Red</Button>
+				<Button style={{color:"white", backgroundColor:"blue", borderColor:"black"}} onClick={() => {updateScheme("Blues",categories)}}>Blue</Button>
+				<Button style={{color:"white", backgroundColor:"darkgray", borderColor:"black"}} onClick={() => {updateScheme("Greys",categories)}}>Gray</Button>
+				<Button style={{color:"white", backgroundColor:"orange", borderColor:"black"}} onClick={() => {updateScheme("Oranges",categories)}}>Orange</Button>
+				<Button style={{color:"white", backgroundColor:"purple", borderColor:"black"}} onClick={() => {updateScheme("Purples",categories)}}>Purple</Button>
 				<br />
-				<Form.Label>diverging: </Form.Label>
+				<Form.Label>Diverging: </Form.Label>
 				<br />
-				<Button style={{color:"white", backgroundColor:"blue", borderColor:"red"}} onClick={() => {updateScheme("RdBu",categories)}}>Red-White-Blue</Button>
+				<Button style={{color:"white", backgroundColor:"blue", borderColor:"red"}} onClick={() => {updateScheme("RdBu",categories)}}>Red-Blue</Button>
 				{/*<Button style={{color:"white", backgroundColor:"darkgray", borderColor:"red"}} onClick={() => {updateScheme("RdGy",categories)}}>Red-Gray</Button>
 				<Button style={{color:"yellow", backgroundColor:"blue", borderColor:"red"}} onClick={() => {updateScheme("RdYlBu",categories)}}>Red-Yellow-Blue</Button>
 				<Button style={{color:"yellow", backgroundColor:"red", borderColor:"green"}} onClick={() => {updateScheme("RdYlGn",categories)}}>Red-Yellow-Green</Button>
@@ -167,16 +168,15 @@ function App() {
 				<Button style={{color:"white", backgroundColor:"green", borderColor:"pink"}} onClick={() => {updateScheme("PiYG",categories)}}>Pink-Yellowgreen</Button>
 				<Button style={{color:"white", backgroundColor:"brown", borderColor:"blue"}} onClick={() => {updateScheme("BrBG",categories)}}>Brown-Bluegreen</Button>*/}
 				<br />
-				<Form.Label>qualitative: </Form.Label>
+				<Form.Label>Qualitative: </Form.Label>
 				<br />
-				<Button style={{color:"white", backgroundColor:"#e41a1c", borderColor:"#377eb8"}} onClick={() => {updateScheme("Set1",categories)}}>dark A</Button>
-				<Button style={{color:"white", backgroundColor:"#fbb4ae", borderColor:"#b3cde3"}} onClick={() => {updateScheme("Pastel1",categories)}}>pastel A</Button>
-				<Button style={{color:"white", backgroundColor:"#8dd3c7", borderColor:"#ffffb3"}} onClick={() => {updateScheme("Set3",categories)}}>light</Button>
+				<Button style={{color:"white", backgroundColor:"#e41a1c", borderColor:"#377eb8"}} onClick={() => {updateScheme("Set1",categories)}}>Set 1</Button>
+				<Button style={{color:"white", backgroundColor:"#fbb4ae", borderColor:"#b3cde3"}} onClick={() => {updateScheme("Pastel1",categories)}}>Pastel 1</Button>
+				<Button style={{color:"white", backgroundColor:"#8dd3c7", borderColor:"#ffffb3"}} onClick={() => {updateScheme("Set3",categories)}}>Set 3</Button>
 				
 				<Form.Check type="checkbox" label="Exclude 'No data'" onChange={() => {setExcludeNoData((1-excludeNoData)%2)}} checked={excludeNoData} />
 	
-				<Form.Label>categories</Form.Label>
-	
+				<Form.Label>Categories</Form.Label>
 				<Form.Control as="select" style={{width:"300px", marginLeft:"10px", marginBottom:"5px"}} onChange={(event)=>{updateScheme(color, parseInt(event.target.value))}} value={categories}>
     				<option>3</option>
     				<option>4</option>
@@ -187,13 +187,19 @@ function App() {
     				<option>9</option>
     			</Form.Control>
 	
-				<Form.Label>title</Form.Label>
+				<Form.Label>Title</Form.Label>
 				<Form.Control type="text" style={{width:"300px", marginLeft:"10px", marginBottom:"5px"}} onChange={(event)=>{setTitle(event.target.value)}} value={title}/>
 	
 				<Form.Label>Background Color</Form.Label>
 				<span style={{backgroundColor:backgroundColor, width:"30px", height:"30px"}}/>
 				<Form.Control type="text" style={{width:"300px", marginLeft:"10px", marginBottom:"5px"}} onChange={(event)=>{setBackgroundColor(event.target.value)}} value={backgroundColor}/>
 	
+				<Form.Label>Font</Form.Label>
+				<Form.Control as="select" style={{width:"300px", marginLeft:"10px", marginBottom:"5px"}} onChange={(event)=>{setFont(event.target.value)}} value={font}>
+					<option>serif</option>
+					<option>sans-serif</option>
+				</Form.Control>
+
 				<Form.Label>Legend Labels</Form.Label>
 				
 				{LegendInput()}
