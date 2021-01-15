@@ -147,6 +147,7 @@ function App() {
 					states={states} font={font} id="map"/>
 			</div>
 			<div id="optionssplit">
+				{/*
 				<Form.Label>Sequential: </Form.Label>
 				<br />
 				<Button style={{color:"white", backgroundColor:"green", borderColor:"black"}} onClick={() => {updateScheme("Greens",categories)}}>Green</Button>
@@ -159,23 +160,70 @@ function App() {
 				<Form.Label>Diverging: </Form.Label>
 				<br />
 				<Button style={{color:"white", backgroundColor:"blue", borderColor:"red"}} onClick={() => {updateScheme("RdBu",categories)}}>Red-Blue</Button>
-				{/*<Button style={{color:"white", backgroundColor:"darkgray", borderColor:"red"}} onClick={() => {updateScheme("RdGy",categories)}}>Red-Gray</Button>
+				<Button style={{color:"white", backgroundColor:"darkgray", borderColor:"red"}} onClick={() => {updateScheme("RdGy",categories)}}>Red-Gray</Button>
 				<Button style={{color:"yellow", backgroundColor:"blue", borderColor:"red"}} onClick={() => {updateScheme("RdYlBu",categories)}}>Red-Yellow-Blue</Button>
 				<Button style={{color:"yellow", backgroundColor:"red", borderColor:"green"}} onClick={() => {updateScheme("RdYlGn",categories)}}>Red-Yellow-Green</Button>
 				<Button style={{color:"yellow", backgroundColor:"red", borderColor:"blue"}} onClick={() => {updateScheme("Spectral",categories)}}>Spectral</Button>
 				<Button style={{color:"white", backgroundColor:"purple", borderColor:"orange"}} onClick={() => {updateScheme("PuOr",categories)}}>Orange-Purple</Button>
 				<Button style={{color:"white", backgroundColor:"green", borderColor:"purple"}} onClick={() => {updateScheme("PRGn",categories)}}>Purple-Green</Button>
 				<Button style={{color:"white", backgroundColor:"green", borderColor:"pink"}} onClick={() => {updateScheme("PiYG",categories)}}>Pink-Yellowgreen</Button>
-				<Button style={{color:"white", backgroundColor:"brown", borderColor:"blue"}} onClick={() => {updateScheme("BrBG",categories)}}>Brown-Bluegreen</Button>*/}
+				<Button style={{color:"white", backgroundColor:"brown", borderColor:"blue"}} onClick={() => {updateScheme("BrBG",categories)}}>Brown-Bluegreen</Button>
 				<br />
 				<Form.Label>Qualitative: </Form.Label>
 				<br />
 				<Button style={{color:"white", backgroundColor:"#e41a1c", borderColor:"#377eb8"}} onClick={() => {updateScheme("Set1",categories)}}>Set 1</Button>
 				<Button style={{color:"white", backgroundColor:"#fbb4ae", borderColor:"#b3cde3"}} onClick={() => {updateScheme("Pastel1",categories)}}>Pastel 1</Button>
-				<Button style={{color:"white", backgroundColor:"#8dd3c7", borderColor:"#ffffb3"}} onClick={() => {updateScheme("Set3",categories)}}>Set 3</Button>
+				<Button style={{color:"white", backgroundColor:"#8dd3c7", borderColor:"#ffffb3"}} onClick={() => {updateScheme("Set3",categories)}}>Set 3</Button>*/}
 				
 				<Form.Check type="checkbox" label="Exclude 'No data'" onChange={() => {setExcludeNoData((1-excludeNoData)%2)}} checked={excludeNoData} />
 	
+				<Form.Label>Colors</Form.Label>
+				<Form.Control as="select" style={{width:"300px", marginLeft:"10px", marginBottom:"5px"}} onChange={(event)=>{updateScheme(event.target.value, categories)}} value={color}>
+					<option disabled> </option>
+					<option disabled>Sequential (Single Hue):</option>
+    				<option value="Greens">Green</option>
+    				<option value="Reds">Red</option>
+    				<option value="Blues">Blue</option>
+    				<option value="Greys">Gray</option>
+    				<option value="Oranges">Orange</option>
+    				<option value="Purples">Purple</option>
+
+					<option disabled> </option>
+					<option disabled>Sequential (Multi Hue):</option>
+    				<option value="BuGn">Blue green</option>
+    				<option value="BuPu">Blue purple</option>
+    				<option value="GnBu">Green blue</option>
+    				<option value="OrRd">Orange red</option>
+    				<option value="PuBu">Purple blue</option>
+    				<option value="PuBuGn">Purple blue green</option>
+					
+    				<option value="PuRd">Purple red</option>
+    				<option value="RdPu">Red purple</option>
+    				<option value="YlGn">Yellow green</option>
+    				<option value="YlGnBu">Yellow green blue</option>
+    				<option value="YlOrBr">Yellow orange brown</option>
+    				<option value="YlOrRd">Yellow orange red</option>
+
+					<option disabled> </option>
+					<option disabled>Diverging:</option>
+    				<option value="RdBu">Red-Blue</option>
+    				<option value="BrBG">Brown-Bluegreen</option>
+    				<option value="PiYG">Pink-Yellowgreen</option>
+    				<option value="PRGn">Purple-Green</option>
+    				<option value="PuOr">Purple-Orange</option>
+    				<option value="RdGy">Red-Gray</option>
+    				<option value="RdYlBu">Red-Yellow-Blue</option>
+    				<option value="RdYlGn">Red-Yellow-Green</option>
+    				<option value="Spectral">Spectral</option>
+
+					<option disabled> </option>
+					<option disabled>Qualitative:</option>
+    				<option value="Set1">Set 1</option>
+    				<option value="Pastel1">Pastel 1</option>
+    				<option value="Set3">Set 3</option>
+    				<option value="Paired">Paired</option>
+    			</Form.Control>
+
 				<Form.Label>Categories</Form.Label>
 				<Form.Control as="select" style={{width:"300px", marginLeft:"10px", marginBottom:"5px"}} onChange={(event)=>{updateScheme(color, parseInt(event.target.value))}} value={categories}>
     				<option>3</option>

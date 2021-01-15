@@ -1,0 +1,5 @@
+Greys- gray scheme (n/d set to white for now)
+RdGy- gray scheme (n/d set to black for now)
+Set1- 9 is similar gray
+Pastel1- Pastel is gray
+Set3- 9 is gray
