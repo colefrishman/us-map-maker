@@ -24,8 +24,6 @@ Custom Color Schemes
 
 Support for up to 11 categories, rather than the current max of 9 (see colorbrewer2.org color pallets)
 
-Legend titles
-
 Better Styling and layout
 
 
