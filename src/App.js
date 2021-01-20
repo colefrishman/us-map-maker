@@ -27,6 +27,7 @@ function App() {
 	const [csvPath, setCsvPath] = useState("");
 	const [backgroundColor, setBackgroundColor] = useState("white");
 	const [fontFamily, setFontFamily] = useState("serif");
+	const [legendTitle, setLegendTitle] = useState("Legend");
 
 	const updateScheme = (colr, cats) => {
 		setColor(colr);
@@ -82,6 +83,9 @@ function App() {
 				let cats = categories;
 				let titl = title;
 				let exNoData = excludeNoData;
+				let legTitl = legendTitle;
+				let backCol = backgroundColor;
+				let fontFam = fontFamily;
 
 				str.split("\n").forEach(line => {
 					const splitLine = line.split(",")
@@ -98,6 +102,9 @@ function App() {
 				updateScheme(col, cats)
 				setTitle(titl);
 				setExcludeNoData(exNoData)
+				setFontFamily(fontFam)
+				setLegendTitle(legendTitle);
+				setBackgroundColor(backgroundColor)
 			}
 			alert("File Uploaded!");
 		}
@@ -115,6 +122,9 @@ function App() {
 		out+= `color,${color}\n`
 		out+= `categories,${categories}\n`
 		out+= `excludeNoData,${excludeNoData}\n`
+		out+= `legendTitle,${legendTitle}\n`
+		out+= `fontFamily,${fontFamily}\n`
+		out+= `backgroundColor,${backgroundColor}\n`
 
 		values.forEach((val, stateId)=>{
 			out+= `${stateId},${val}\n`
@@ -144,7 +154,7 @@ function App() {
 				<Button onClick={() => {downloadAsPng()}}>Download as PNG</Button>
 				<br />
 				<Svg colorScheme={colorScheme} title={title} legend={legend} excludeNoData={excludeNoData} backgroundColor={backgroundColor} values={values} updateValues={updateValues}
-					states={states} font={fontFamily} id="map"/>
+					states={states} font={fontFamily} legendTitle={legendTitle} id="map"/>
 			</div>
 			<div id="optionssplit">
 				{/*
@@ -251,6 +261,9 @@ function App() {
 					<option>fantasy</option>
 				</Form.Control>
 
+				<Form.Label>Legend Title</Form.Label>
+				<Form.Control type="text" style={{width:"300px", marginLeft:"10px", marginBottom:"5px"}} onChange={(event)=>{setLegendTitle(event.target.value)}} value={legendTitle}/>
+	
 				<Form.Label>Legend Labels</Form.Label>
 				
 				{LegendInput()}
