@@ -26,7 +26,7 @@ function App() {
 	const [values, setValues] = useState(fillMap());
 	const [csvPath, setCsvPath] = useState("");
 	const [backgroundColor, setBackgroundColor] = useState("white");
-	const [font, setFont] = useState("serif");
+	const [fontFamily, setFontFamily] = useState("serif");
 
 	const updateScheme = (colr, cats) => {
 		setColor(colr);
@@ -144,7 +144,7 @@ function App() {
 				<Button onClick={() => {downloadAsPng()}}>Download as PNG</Button>
 				<br />
 				<Svg colorScheme={colorScheme} title={title} legend={legend} excludeNoData={excludeNoData} backgroundColor={backgroundColor} values={values} updateValues={updateValues}
-					states={states} font={font} id="map"/>
+					states={states} font={fontFamily} id="map"/>
 			</div>
 			<div id="optionssplit">
 				{/*
@@ -242,10 +242,13 @@ function App() {
 				<span style={{backgroundColor:backgroundColor, width:"30px", height:"30px"}}/>
 				<Form.Control type="text" style={{width:"300px", marginLeft:"10px", marginBottom:"5px"}} onChange={(event)=>{setBackgroundColor(event.target.value)}} value={backgroundColor}/>
 	
-				<Form.Label>Font</Form.Label>
-				<Form.Control as="select" style={{width:"300px", marginLeft:"10px", marginBottom:"5px"}} onChange={(event)=>{setFont(event.target.value)}} value={font}>
+				<Form.Label>Font Family</Form.Label>
+				<Form.Control as="select" style={{width:"300px", marginLeft:"10px", marginBottom:"5px"}} onChange={(event)=>{setFontFamily(event.target.value)}} value={fontFamily}>
 					<option>serif</option>
 					<option>sans-serif</option>
+					<option>monospace</option>
+					<option>cursive</option>
+					<option>fantasy</option>
 				</Form.Control>
 
 				<Form.Label>Legend Labels</Form.Label>
