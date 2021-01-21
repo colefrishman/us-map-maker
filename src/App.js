@@ -96,6 +96,9 @@ function App() {
 						case "color": col = val.trim(); break;
 						case "title": titl = val; break;
 						case "excludeNoData": exNoData = parseInt(val); break;
+						case "fontFamily": fontFam = val; break;
+						case "backgroundColor": backCol = val; break;
+						case "legendTitle": legTitl = val; break;
 						default: updateValues(key, val);
 					}
 				})
@@ -103,8 +106,8 @@ function App() {
 				setTitle(titl);
 				setExcludeNoData(exNoData)
 				setFontFamily(fontFam)
-				setLegendTitle(legendTitle);
-				setBackgroundColor(backgroundColor)
+				setLegendTitle(legTitl);
+				setBackgroundColor(backCol);
 			}
 			alert("File Uploaded!");
 		}
@@ -157,33 +160,6 @@ function App() {
 					states={states} font={fontFamily} legendTitle={legendTitle} id="map"/>
 			</div>
 			<div id="optionssplit">
-				{/*
-				<Form.Label>Sequential: </Form.Label>
-				<br />
-				<Button style={{color:"white", backgroundColor:"green", borderColor:"black"}} onClick={() => {updateScheme("Greens",categories)}}>Green</Button>
-				<Button style={{color:"white", backgroundColor:"red", borderColor:"black"}} onClick={() => {updateScheme("Reds",categories)}}>Red</Button>
-				<Button style={{color:"white", backgroundColor:"blue", borderColor:"black"}} onClick={() => {updateScheme("Blues",categories)}}>Blue</Button>
-				<Button style={{color:"white", backgroundColor:"darkgray", borderColor:"black"}} onClick={() => {updateScheme("Greys",categories)}}>Gray</Button>
-				<Button style={{color:"white", backgroundColor:"orange", borderColor:"black"}} onClick={() => {updateScheme("Oranges",categories)}}>Orange</Button>
-				<Button style={{color:"white", backgroundColor:"purple", borderColor:"black"}} onClick={() => {updateScheme("Purples",categories)}}>Purple</Button>
-				<br />
-				<Form.Label>Diverging: </Form.Label>
-				<br />
-				<Button style={{color:"white", backgroundColor:"blue", borderColor:"red"}} onClick={() => {updateScheme("RdBu",categories)}}>Red-Blue</Button>
-				<Button style={{color:"white", backgroundColor:"darkgray", borderColor:"red"}} onClick={() => {updateScheme("RdGy",categories)}}>Red-Gray</Button>
-				<Button style={{color:"yellow", backgroundColor:"blue", borderColor:"red"}} onClick={() => {updateScheme("RdYlBu",categories)}}>Red-Yellow-Blue</Button>
-				<Button style={{color:"yellow", backgroundColor:"red", borderColor:"green"}} onClick={() => {updateScheme("RdYlGn",categories)}}>Red-Yellow-Green</Button>
-				<Button style={{color:"yellow", backgroundColor:"red", borderColor:"blue"}} onClick={() => {updateScheme("Spectral",categories)}}>Spectral</Button>
-				<Button style={{color:"white", backgroundColor:"purple", borderColor:"orange"}} onClick={() => {updateScheme("PuOr",categories)}}>Orange-Purple</Button>
-				<Button style={{color:"white", backgroundColor:"green", borderColor:"purple"}} onClick={() => {updateScheme("PRGn",categories)}}>Purple-Green</Button>
-				<Button style={{color:"white", backgroundColor:"green", borderColor:"pink"}} onClick={() => {updateScheme("PiYG",categories)}}>Pink-Yellowgreen</Button>
-				<Button style={{color:"white", backgroundColor:"brown", borderColor:"blue"}} onClick={() => {updateScheme("BrBG",categories)}}>Brown-Bluegreen</Button>
-				<br />
-				<Form.Label>Qualitative: </Form.Label>
-				<br />
-				<Button style={{color:"white", backgroundColor:"#e41a1c", borderColor:"#377eb8"}} onClick={() => {updateScheme("Set1",categories)}}>Set 1</Button>
-				<Button style={{color:"white", backgroundColor:"#fbb4ae", borderColor:"#b3cde3"}} onClick={() => {updateScheme("Pastel1",categories)}}>Pastel 1</Button>
-				<Button style={{color:"white", backgroundColor:"#8dd3c7", borderColor:"#ffffb3"}} onClick={() => {updateScheme("Set3",categories)}}>Set 3</Button>*/}
 				
 				<Form.Check type="checkbox" label="Exclude 'No data'" onChange={() => {setExcludeNoData((1-excludeNoData)%2)}} checked={excludeNoData} />
 	

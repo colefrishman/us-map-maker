@@ -27,9 +27,6 @@ Support for up to 11 categories, rather than the current max of 9 (see colorbrew
 Better Styling and layout
 
 
-
-
-
 ## Available Scripts
 
 In the project directory, you can run:

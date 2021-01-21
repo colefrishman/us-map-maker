@@ -2,7 +2,6 @@ import React from 'react';
 
 const StatePath = (props) => {
 	const oldVal = parseInt(props.values.get(props.dataId));
-
 	return (
 		<path 
 			key={props.dataId}
@@ -58,6 +57,16 @@ const Legend = (props) => {
 	return leg;
 }
 
+const labels = (states, x, starty) => {
+	let lab = [];
+	let i = 0;
+	states.forEach(state => {
+		lab.push(<text x={x} y={(starty+i*20)} className="label" key={state}>{state}</text>);
+		++i;
+	})
+	return lab;
+} 
+
 const Svg = (props) => {
 	let statesJsx = [];
 	props.states.forEach((state)=>{
@@ -84,14 +93,7 @@ const Svg = (props) => {
 		</metadata>
 		<text x="50%" y="-10" adominant-baseline="middle" textAnchor="middle" style={{font: `50px ${props.font}`, textAlign:"center"}}>{props.title}</text>
 		<text x="45" y="620" style={{font: `25px ${props.font}`, textAlign:"center"}}>{props.legendTitle}</text>
-		<text x="1035" y="215" className="label">NH</text>
-		<text x="1035" y="235" className="label">VT</text>
-		<text x="1035" y="255" className="label">MA</text>
-		<text x="1035" y="275" className="label">RI</text>
-		<text x="1035" y="295" className="label">CT</text>
-		<text x="1035" y="315" className="label">NJ</text>
-		<text x="1035" y="335" className="label">DE</text>
-		<text x="1035" y="355" className="label">DC</text>
+		{labels(["NH", "VT", "MA", "RI", "CT", "NJ", "DE", "DC"], 1035, 215)}
 		{statesJsx}
 
 		<Legend colorScheme={props.colorScheme} legend={props.legend} excludeNoData={props.excludeNoData}/>
