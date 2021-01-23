@@ -8,6 +8,10 @@ import states from './data.js'
 import fileDownload from 'js-file-download'
 import {saveSvgAsPng} from 'save-svg-as-png';
 
+/**
+ * Creates a Map with initial values for the imported states
+ * @return {Map<String, Number>}      Map with state.id as keys and 0 as value
+ */
 const fillMap = () => {
 	let temp = new Map()
 	states.forEach((state)=>{
@@ -16,6 +20,10 @@ const fillMap = () => {
 	return temp
 }
 
+/**
+ * Holds the logic of the app
+ * @return {JSX}      JSX component corresponding to the app
+ */
 function App() {
 	const [title, setTitle] = useState("Title");
 	const [color, setColor] = useState("Reds");
@@ -29,6 +37,11 @@ function App() {
 	const [fontFamily, setFontFamily] = useState("serif");
 	const [legendTitle, setLegendTitle] = useState("Legend");
 
+	/**
+ 	* Updates the color scheme based on the given color and category values
+ 	* @param  {String} colr color as a word or hex value
+ 	* @param  {Number} cat number of categories in the color scheme
+ 	*/
 	const updateScheme = (colr, cats) => {
 		setColor(colr);
 		setCategories(cats);
@@ -46,22 +59,37 @@ function App() {
 		setColorScheme(tempScheme);
 	}
 
+	/**
+ 	* Updates the Legend
+ 	* @param  {number} index Index of the category label
+ 	* @param  {Number} text New text of the category label
+ 	*/
 	const updateLegend = (index, text) => {
 		let temp = [...legend];
 		temp[index]=text;
 		setLegend(temp)
 	}
 
+	/**
+	 * Updates the value for a state
+	 * @param  {String} key id of state to be updated
+	 * @param  {Number} value new value of the updated state
+	 */
 	const updateValues = (key, value) => {
 		setValues((prev) => new Map(prev).set(key, value));
 	}
 
+	/**
+	 * Downloads the map as an svg straight from the page 
+	 */
 	const downloadSvg = () => {
 		fileDownload(document.getElementById("map").outerHTML, `${title}-us-map-maker.svg`);
-
 	}
 
-
+	/**
+	 * Creates the inputs for legend labels
+	 * @return {Array<JSX>}      Legend label inputs
+	 */
 	const LegendInput = () => {
 		let temp = []
 		for (let i=excludeNoData; i<=categories; ++i){
@@ -71,6 +99,10 @@ function App() {
 		return temp;
 	}
 
+	/**
+	 * Updates the state of the map to match values from an uploaded csv
+	 * @param  {String} num1 file path
+	 */
 	const fillValuesFromCsv = (file) => {
 		if(file===""){alert("Upload a file in the correct format"); return;}
 		try {
@@ -119,6 +151,10 @@ function App() {
 		}
 	}
 
+	/**
+	 * Generates text of a csv file usable by this application to prepare for download
+	 * @return {String} The content of the csv
+	 */
 	const generateCsv = () => {
 		let out = "";
 		out+= `title,${title}\n`
@@ -136,10 +172,16 @@ function App() {
 		return out;
 	}
 
+	/**
+	 * Generates a csv and starts a download. See generateCsv().
+	 */
 	const exportToCsv = () => {
 		fileDownload(generateCsv(), `${title}-us-map-maker.csv`);
 	}
 
+	/**
+	 * Donloads the map as a png.
+	 */
 	const downloadAsPng = () => {
 		saveSvgAsPng(document.getElementById("map"), `${title}-us-map-maker.png`, {top: -50});
 	}
