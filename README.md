@@ -6,7 +6,7 @@ There are customization options below the Map itself.
 
 Then just save it as an SVG!
 
-
+The background color can take color names (white, red, lightblue etc.) or hex values (#ffffff, #ff0000, etc.)
 
 An example CSV file is included in the root directory
 
@@ -20,18 +20,11 @@ Unit Tests
 
 Font options for title and legend
 
-Background Color options
-
 Custom Color Schemes
 
 Support for up to 11 categories, rather than the current max of 9 (see colorbrewer2.org color pallets)
 
-Legend titles
-
 Better Styling and layout
-
-
-
 
 
 ## Available Scripts

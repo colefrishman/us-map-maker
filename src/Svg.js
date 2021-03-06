@@ -1,8 +1,18 @@
 import React from 'react';
 
+/**
+ * Creates an SVG path element corresponding to a state
+ * @param   {String} props.dataId Two letter abbreviation for each state
+ * @param   {String} props.dataName Name of the state (e.g. "Florida")
+ * @param   {String} props.d SVG path coordinates
+ * @param   {Array<String>} props.colorScheme Array of color values
+ * @param   {Map<String, Int>} props.values Array of values for each state
+ * @param   {function(<String, Int>)} props.updateValues function that updates the value of props.values
+ *
+ * @returns {JSX} SVG path element for a state
+ */
 const StatePath = (props) => {
 	const oldVal = parseInt(props.values.get(props.dataId));
-
 	return (
 		<path 
 			key={props.dataId}
@@ -24,9 +34,16 @@ const StatePath = (props) => {
 	
 }
 
+/**
+ * Labels for the legend
+ * @param   {Int} props.number index of the label
+ * @param   {String} props.text Text of the label
+ *
+ * @returns {JSX} SVG text element with loaction determined by number
+ */
 const LegendLabel = (props) => {
 	const x=(85+(parseInt(props.number)%5)*225);
-	const y=(615+(props.number>=5)*40);
+	const y=(650+(props.number>=5)*40);
 
 	return (
 		<text x={x} y={y} className="label">{props.text}</text>
@@ -34,10 +51,16 @@ const LegendLabel = (props) => {
 	
 }
 
+/**
+ * Labels for the legend
+ * @param   {Number} props.number index of the legend rectangle
+ *
+ * @returns {JSX} SVG path element with location determined by number
+ */
 const LegendPath = (props) => {
 	if(props.number >= 0){
 		const x=(50+(parseInt(props.number)%5)*225);
-		const y=(600+(props.number>=5)*40);
+		const y=(635+(props.number>=5)*40);
 
 		return (
 			<path data-id={"L"+props.number} fill={props.colorScheme[props.number]} d={"M "+x+" " +y+" h 30 v 20 h -30 Z"} strokeWidth=".97063" key={"L"+props.number}/>
@@ -48,6 +71,15 @@ const LegendPath = (props) => {
 	}
 }
 
+
+/**
+ * Creates visible legend in svg
+ * @param   {Number} props.excludeNoData create a label for no data if the option is true
+ * @param   {Array<String>} props.colorScheme Array of color values
+ * @param   {Array<String>} props.legend Legend text
+ *
+ * @returns {Array<JSX>} SVG path and text elements with loaction based on number of categories
+ */
 const Legend = (props) => {
 	let leg = []
 
@@ -58,6 +90,37 @@ const Legend = (props) => {
 	return leg;
 }
 
+/**
+ * Crates labels for the small states from an array
+ * @param   {Array<String>} states State abbreviations
+ * @param   {Number} x x location of label
+ * @param   {Number} starty y location of highest label
+ *
+ * @returns {Array<JSX>} SVG path text elements with loaction based on number
+ */
+const labels = (states, x, starty) => {
+	let lab = [];
+	let i = 0;
+	states.forEach(state => {
+		lab.push(<text x={x} y={(starty+i*20)} className="label" key={state}>{state}</text>);
+		++i;
+	})
+	return lab;
+}
+
+/**
+ * Creates an SVG based on info from props
+ * @param   {Map<String, Object>} props.states Important values for each state
+ * @param   {Array<String>} props.colorScheme Array of color values
+ * @param   {Map<String, Int>} props.values Array of values for each state
+ * @param   {function(<String, Int>)} props.updateValues function that updates the value of props.values
+ * @param   {String} props.backgroundColor background color of map
+ * @param   {String} props.font font of map
+ * @param   {String} props.title title of map
+ * @param   {Array<String>} props.legend legend text of map
+ *
+ * @returns {JSX} SVG for the map
+ */
 const Svg = (props) => {
 	let statesJsx = [];
 	props.states.forEach((state)=>{
@@ -65,11 +128,13 @@ const Svg = (props) => {
 	})
 
 	return (
-	<svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink= "http://www.w3.org/1999/xlink"	fill="none" stroke="#000" strokeLinejoin="round" enable_background="new 0 0 1000 589" pretty_print="False" version="1.1" viewBox="0 -50 1200 800" width="50%" id={props.id}>
+	<svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink= "http://www.w3.org/1999/xlink"	fill="none" stroke="#000"
+	 	strokeLinejoin="round" enable_background="new 0 0 1000 589" pretty_print="False" version="1.1" viewBox="0 -50 1200 800"
+		width="100%" style={{backgroundColor:props.backgroundColor}} id={props.id}>
 		<defs>
 		<style type="text/css">{
 			"path { fill-rule: evenodd; }"+
-			".label {font: 12px serif, textAlign:center}"}</style>
+			`.label {font: 12px ${props.font}; textAlign:center}`}</style>
 		</defs>
 		<metadata>
 			<views>
@@ -80,15 +145,9 @@ const Svg = (props) => {
 				</view>
 			</views>
 		</metadata>
-		<text x="50%" y="-10" adominant-baseline="middle" textAnchor="middle" style={{font: "50px sans-serif", textAlign:"center"}}>{props.title}</text>
-		<text x="1035" y="215" className="label">NH</text>
-		<text x="1035" y="235" className="label">VT</text>
-		<text x="1035" y="255" className="label">MA</text>
-		<text x="1035" y="275" className="label">RI</text>
-		<text x="1035" y="295" className="label">CT</text>
-		<text x="1035" y="315" className="label">NJ</text>
-		<text x="1035" y="335" className="label">DE</text>
-		<text x="1035" y="355" className="label">DC</text>
+		<text x="50%" y="-10" adominant-baseline="middle" textAnchor="middle" style={{font: `50px ${props.font}`, textAlign:"center"}}>{props.title}</text>
+		<text x="45" y="620" style={{font: `25px ${props.font}`, textAlign:"center"}}>{props.legendTitle}</text>
+		{labels(["NH", "VT", "MA", "RI", "CT", "NJ", "DE", "DC"], 1035, 215)}
 		{statesJsx}
 
 		<Legend colorScheme={props.colorScheme} legend={props.legend} excludeNoData={props.excludeNoData}/>
