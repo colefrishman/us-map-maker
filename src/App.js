@@ -289,7 +289,6 @@ function App() {
 			<div id="credits"></div> 
 			<p>Map outline from simplemaps.com</p>
 			<p>Colors from colorbrewer2.org</p>
-			<p>SVG download from nytimes.github.io/svg-crowbar</p>
 		</div>
 	)
 }
