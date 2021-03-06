@@ -58,7 +58,7 @@ let states = new Map([
 let i = 0;
 smallStates.forEach(initials =>{
 	let tmp = states.get(initials);
-	tmp.coords = tmp.coords+`M 1000 ${200+i*20} h 30 v 20 h -30 Z`;
+	tmp.coords = tmp.coords+`M 1000 ${100+i*20} h 30 v 20 h -30 Z`;
 	++i;
 })
 

@@ -94,7 +94,7 @@ function App() {
 		let temp = []
 		for (let i=excludeNoData; i<=categories; ++i){
 			temp.push(<Form.Control key={i} style={{width:"300px", marginLeft:"10px", marginBottom:"5px"}}
-			 type="text" value={legend[i]} maxLength="12" onChange={(event)=>{updateLegend(i, event.target.value)}} />)
+			 type="text" value={legend[i]} maxLength="19" onChange={(event)=>{updateLegend(i, event.target.value)}} />)
 		}
 		return temp;
 	}
@@ -183,7 +183,7 @@ function App() {
 	 * Donloads the map as a png.
 	 */
 	const downloadAsPng = () => {
-		saveSvgAsPng(document.getElementById("map"), `${title}-us-map-maker.png`, {top: -50});
+		saveSvgAsPng(document.getElementById("map"), `${title}-us-map-maker.png`, {top: -100, left:50});
 	}
 	
 

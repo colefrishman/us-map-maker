@@ -42,8 +42,8 @@ const StatePath = (props) => {
  * @returns {JSX} SVG text element with loaction determined by number
  */
 const LegendLabel = (props) => {
-	const x=(85+(parseInt(props.number)%5)*225);
-	const y=(650+(props.number>=5)*40);
+	const x=(985);
+	const y=(365+props.number*20);
 
 	return (
 		<text x={x} y={y} className="label">{props.text}</text>
@@ -59,8 +59,8 @@ const LegendLabel = (props) => {
  */
 const LegendPath = (props) => {
 	if(props.number >= 0){
-		const x=(50+(parseInt(props.number)%5)*225);
-		const y=(635+(props.number>=5)*40);
+		const x=(950);
+		const y=(350+props.number*20);
 
 		return (
 			<path data-id={"L"+props.number} fill={props.colorScheme[props.number]} d={"M "+x+" " +y+" h 30 v 20 h -30 Z"} strokeWidth=".97063" key={"L"+props.number}/>
@@ -129,7 +129,7 @@ const Svg = (props) => {
 
 	return (
 	<svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink= "http://www.w3.org/1999/xlink"	fill="none" stroke="#000"
-	 	strokeLinejoin="round" enable_background="new 0 0 1000 589" pretty_print="False" version="1.1" viewBox="0 -50 1200 800"
+	 	strokeLinejoin="round" enable_background="new 0 0 1000 589" pretty_print="False" version="1.1" viewBox="50 -100 1200 700"
 		width="100%" style={{backgroundColor:props.backgroundColor}} id={props.id}>
 		<defs>
 		<style type="text/css">{
@@ -146,12 +146,13 @@ const Svg = (props) => {
 			</views>
 		</metadata>
 		<text x="50%" y="-10" adominant-baseline="middle" textAnchor="middle" style={{font: `50px ${props.font}`, textAlign:"center"}}>{props.title}</text>
-		<text x="45" y="620" style={{font: `25px ${props.font}`, textAlign:"center"}}>{props.legendTitle}</text>
-		{labels(["NH", "VT", "MA", "RI", "CT", "NJ", "DE", "DC"], 1035, 215)}
+		<text x="950" y="340" style={{font: `25px ${props.font}`, textAlign:"center"}}>{props.legendTitle}</text>
+		<path d="M 930 310 h 300 v 250 h -300 Z" stroke-width=".97063"></path>
+		{labels(["NH", "VT", "MA", "RI", "CT", "NJ", "DE", "DC"], 1035, 115)}
 		{statesJsx}
 
 		<Legend colorScheme={props.colorScheme} legend={props.legend} excludeNoData={props.excludeNoData}/>
 	</svg>
 )}
 
-export default Svg
+export default Svg;
