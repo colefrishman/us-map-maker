@@ -38,12 +38,13 @@ const StatePath = (props) => {
  * Labels for the legend
  * @param   {Int} props.number index of the label
  * @param   {String} props.text Text of the label
+ * @param   {Number} props.excludeNoData shifts label down if the option is true
  *
  * @returns {JSX} SVG text element with loaction determined by number
  */
 const LegendLabel = (props) => {
 	const x=(985);
-	const y=(365+props.number*20);
+	const y=(365+(props.number-props.excludeNoData)*20);
 
 	return (
 		<text x={x} y={y} className="label">{props.text}</text>
@@ -54,13 +55,14 @@ const LegendLabel = (props) => {
 /**
  * Labels for the legend
  * @param   {Number} props.number index of the legend rectangle
- *
+ * @param   {Number} props.excludeNoData shifts label down if the option is true
+ * 
  * @returns {JSX} SVG path element with location determined by number
  */
 const LegendPath = (props) => {
 	if(props.number >= 0){
 		const x=(950);
-		const y=(350+props.number*20);
+		const y=(350+(props.number-props.excludeNoData)*20);
 
 		return (
 			<path data-id={"L"+props.number} fill={props.colorScheme[props.number]} d={"M "+x+" " +y+" h 30 v 20 h -30 Z"} strokeWidth=".97063" key={"L"+props.number}/>
@@ -84,8 +86,8 @@ const Legend = (props) => {
 	let leg = []
 
 	for(let i=props.excludeNoData; i<props.colorScheme.length; ++i){
-		leg.push(<LegendLabel key={"label"+i} number={i} className="label" text={props.legend[i]} />)
-		leg.push(<LegendPath key={"rect"+i} number={i} colorScheme={props.colorScheme} strokeWidth=".97063"/>)
+		leg.push(<LegendLabel key={"label"+i} number={i} className="label" text={props.legend[i]}  excludeNoData={props.excludeNoData}/>)
+		leg.push(<LegendPath key={"rect"+i} number={i} colorScheme={props.colorScheme} strokeWidth=".97063" excludeNoData={props.excludeNoData}/>)
 	}
 	return leg;
 }
